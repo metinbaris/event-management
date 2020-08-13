@@ -1,2 +1,3 @@
-# qrcodevalidation
-qrcode validation service
+#qrcodevalidaton
+
+This project matchs and validates email and generated qrcode
