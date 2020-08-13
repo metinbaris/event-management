@@ -11,4 +11,9 @@ class CompanyEvent extends Model
         'start',
         'end',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'user_events', 'event_id', 'user_id');
+    }
 }
