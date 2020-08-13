@@ -9,12 +9,12 @@ class QrCodeGeneratorController extends Controller
 {
     public function generate(Request $request)
     {
-        $validatedData = $request->validate([
-            'email' => 'required|email',
-            'event' => 'required|exist:company_events, id',
-        ]);
+        //$validatedData = $request->validate([
+        //    'email' => 'required|email',
+        //    'event' => 'required|exist:company_events, id',
+        //]);
 
-        Artisan::call('qrcode:generate 1 --queue=default');
+        Artisan::call('qrcode:generate');
 
         return response()->json([
             $validatedData

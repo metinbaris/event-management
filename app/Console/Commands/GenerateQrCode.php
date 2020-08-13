@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\QrCodeGenerated;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class GenerateQrCode extends Command
 {
@@ -37,6 +39,6 @@ class GenerateQrCode extends Command
      */
     public function handle()
     {
-        return 0;
+        Mail::to('hizmetparki@gmail.com')->send(new QrCodeGenerated());
     }
 }
