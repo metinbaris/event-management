@@ -17,7 +17,6 @@ class QrCodeGeneratorController extends Controller
         $email = $request->get('email');
         $companyEventId = $request->get('companyEvent');
         $companyEvent = CompanyEvent::find($companyEventId);
-
         GenerateQrCode::dispatch($email, $companyEvent);
 
         return response()->json([

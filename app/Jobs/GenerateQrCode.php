@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\CompanyEvent;
 use App\Mail\QrCodeGenerated;
+use Endroid\QrCode\QrCode;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -44,6 +45,15 @@ class GenerateQrCode implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new QrCodeGenerated($this->companyEvent));
+        $qrCode = $this->createNewQrCode($this->email, $this->companyEvent);
+        Mail::to($this->email)->send(new QrCodeGenerated($this->companyEvent, $qrCode));
+    }
+
+    private function createNewQrCode(string $email, CompanyEvent $companyEvent)
+    {
+        $url = env('APP_URL') . '/' . $email . '/' . $companyEvent->id;
+        $qrCode = new QrCode($url);
+
+        return $qrCode;
     }
 }
