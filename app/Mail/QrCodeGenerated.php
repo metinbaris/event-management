@@ -38,6 +38,6 @@ class QrCodeGenerated extends Mailable
      */
     public function build()
     {
-        return $this->view('qr_code_generated');
+        return $this->subject('iTravel.ist event registration')->view('qr_code_generated');
     }
 }
