@@ -16,6 +16,7 @@ class CreateCompanyEventsTable extends Migration
         Schema::create('company_events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('url');
             $table->dateTime('start');
             $table->dateTime('end');
             $table->timestamps();

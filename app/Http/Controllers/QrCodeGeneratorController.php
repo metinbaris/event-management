@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\GenerateQrCodeJob;
+use App\CompanyEvent;
+use App\Jobs\GenerateQrCode;
 use Illuminate\Http\Request;
 
 class QrCodeGeneratorController extends Controller
@@ -14,7 +15,10 @@ class QrCodeGeneratorController extends Controller
         //    'event' => 'required|exist:company_events, id',
         //]);
         $email = $request->get('email');
-        $qrCode = new GenerateQrCodeJob($email);
+        $companyEventId = $request->get('companyEvent');
+        $companyEvent = CompanyEvent::find($companyEventId);
+
+        GenerateQrCode::dispatch($email, $companyEvent);
 
         return response()->json([
 

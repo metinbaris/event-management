@@ -1,0 +1,1 @@
+<h1>{{$companyEvent->name}}</h1>
