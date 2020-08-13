@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GenerateQrCodeJob;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 
 class QrCodeGeneratorController extends Controller
 {
@@ -13,11 +13,11 @@ class QrCodeGeneratorController extends Controller
         //    'email' => 'required|email',
         //    'event' => 'required|exist:company_events, id',
         //]);
-
-        Artisan::call('qrcode:generate');
+        $email = $request->get('email');
+        $qrCode = new GenerateQrCodeJob($email);
 
         return response()->json([
-            $validatedData
+
         ]);
     }
 }
