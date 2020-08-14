@@ -14,11 +14,15 @@ class RegisterUserController extends Controller
     {
         $this->eventRegistrationValidator->validateEmailAndEvent($request);
         $email = $request->get('email');
-        //$companyEvent = CompanyEvent::find($request->get('companyEvent'));
-        //$user = $this->createUser($email);
-        //$userEvent = $this->createUserEvent($user, $companyEvent);
+        $companyEvent = CompanyEvent::find($request->get('companyEvent'));
+        $user = $this->createUser($email);
+        $userEvent = $this->createUserEvent($user, $companyEvent);
 
-        return response(['email' => $userEvent]);
+        if (empty($userEvent)) {
+            return response(['You have already registered']);
+        }
+
+        return response($userEvent);
     }
 
     private function getNameFromEmail(string $email): string
@@ -30,22 +34,25 @@ class RegisterUserController extends Controller
 
     private function createUser(string $email): User
     {
-        $user = User::firstOrNew([
-            'name' => $this->getNameFromEmail($email),
-            'password' => Hash::make('123456'),
-            'email' => $email,
-        ]);
+        $user = User::firstOrCreate(
+            ['email' => $email],
+            ['password' => Hash::make('123456'), 'name' => $this->getNameFromEmail($email)]
+        );
 
         return $user;
     }
 
-    private function createUserEvent(User $user, CompanyEvent $event): UserEvent
+    private function createUserEvent(User $user, CompanyEvent $event): ?UserEvent
     {
-        $userEvent = UserEvent::firstOrCreate([
-            'user_id' => $user->id,
-            'event_id' => $event->id
-        ]);
+        try {
+            $userEvent = UserEvent::create([
+                'user_id' => $user->id,
+                'event_id' => $event->id
+            ]);
 
-        return $userEvent;
+            return $userEvent;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }
