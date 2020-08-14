@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\CompanyEvent;
+use App\Mail\UserEventRegistered;
 use App\User;
 use App\UserEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterUserController extends Controller
 {
@@ -19,8 +21,10 @@ class RegisterUserController extends Controller
         $userEvent = $this->createUserEvent($user, $companyEvent);
 
         if (empty($userEvent)) {
-            return response(['You have already registered']);
+            return response(['You have already registered to this event']);
         }
+
+        Mail::to($user)->send(new UserEventRegistered($companyEvent, $user));
 
         return response($userEvent);
     }

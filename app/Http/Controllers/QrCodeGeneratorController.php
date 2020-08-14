@@ -10,17 +10,11 @@ class QrCodeGeneratorController extends Controller
 {
     public function generate(Request $request)
     {
-        //$validatedData = $request->validate([
-        //    'email' => 'required|email',
-        //    'event' => 'required|exist:company_events, id',
-        //]);
         $email = $request->get('email');
         $companyEventId = $request->get('companyEvent');
         $companyEvent = CompanyEvent::find($companyEventId);
         GenerateQrCode::dispatch($email, $companyEvent);
 
-        return response()->json([
-
-        ]);
+        return redirect("https://itravel.ist/thanks-for-register?companyEvent=$companyEvent->name");
     }
 }
