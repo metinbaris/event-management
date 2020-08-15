@@ -16,12 +16,12 @@ class RegisterUserController extends Controller
     {
         $this->eventRegistrationValidator->validateEmailAndEvent($request);
         $email = $request->get('email');
-        $companyEvent = CompanyEvent::find($request->get('companyEvent'));
         $user = $this->createUser($email);
+        $companyEvent = CompanyEvent::find($request->get('companyEvent'));
         $userEvent = $this->createUserEvent($user, $companyEvent);
 
         if (empty($userEvent)) {
-            return response(['You have already registered to this event']);
+            return response(['You have already registered to this event, please find your qrcode that we emailed']);
         }
 
         Mail::to($user)->send(new UserEventRegistered($companyEvent, $user));
