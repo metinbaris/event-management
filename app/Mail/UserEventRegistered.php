@@ -31,7 +31,8 @@ class UserEventRegistered extends Mailable
     {
         $this->companyEvent = $companyEvent;
         $this->user = $user;
-        $this->url = env('APP_URL');
+        $appUrl = env('APP_URL');
+        $this->url = "http://$appUrl/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}";
     }
 
     /**

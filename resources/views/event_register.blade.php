@@ -7,13 +7,14 @@
             <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td bgcolor="#EB7035" style="padding: 12px 18px 12px 18px; border-radius:3px" align="center">
-                        <a href="{{ $url }}/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}"
+                        <a href="{{ $url }}"
                            target="_blank"
                            style="font-size: 16px;
                            font-family: Helvetica, Arial, sans-serif;
                            font-weight: normal;
                            color: #ffffff; text-decoration: none;
-                           display: inline-block;">Approve email subscription and get QrCode &rarr;
+                           display: inline-block;">
+                            Approve email subscription and get QrCode &rarr;
                         </a>
                     </td>
                 </tr>
@@ -23,8 +24,7 @@
 </table>
 <br>
 <small style="font-size: 10px;">If the button is not working proper you can also click here:
-    <a href="{{ $url }}/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}">
-        {{ $url }}/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}</a>
+    <a href="{{ $url }}">{{ $url }}</a>
 </small>
 <br>
 <a href="/itravel.ist" target="_blank">
