@@ -19,21 +19,10 @@ class RegisterUserController extends Controller
         $user = $this->createUser($email);
         $companyEvent = CompanyEvent::find($request->get('companyEvent'));
         $userEvent = $this->createUserEvent($user, $companyEvent);
+        $eventAlert = $this->getEventAlertMessage($userEvent);
 
-        if (empty($userEvent)) {
-            return response(['You have already registered to this event, please find your qrcode that we emailed']);
-        }
+        return redirect("$companyEvent->url?eventAlert=$eventAlert[0]&eventAlertType=$eventAlert[1]");
 
-        Mail::to($user)->send(new UserEventRegistered($companyEvent, $user));
-
-        return response($userEvent);
-    }
-
-    private function getNameFromEmail(string $email): string
-    {
-        $arr = explode("@", $email, 2);
-
-        return ucfirst($arr[ 0 ]);
     }
 
     private function createUser(string $email): User
@@ -53,10 +42,27 @@ class RegisterUserController extends Controller
                 'user_id' => $user->id,
                 'event_id' => $event->id
             ]);
+            Mail::to($user)->send(new UserEventRegistered($event, $user));
 
             return $userEvent;
         } catch (\Exception $e) {
             return null;
         }
+    }
+
+    private function getEventAlertMessage($userEvent): array
+    {
+        if (empty($userEvent)) {
+            return [urlencode('This email has been used for registration'), 'fail'];
+        }
+
+        return [urlencode('Thank you for registering we send your qrcode'), 'success'];
+    }
+
+    private function getNameFromEmail(string $email): string
+    {
+        $arr = explode("@", $email, 2);
+
+        return ucfirst($arr[ 0 ]);
     }
 }

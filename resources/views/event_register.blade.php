@@ -22,12 +22,10 @@
         </td>
     </tr>
 </table>
-<br>
-<small style="font-size: 10px;">If the button is not working proper you can also click here:
+<p style="font-size: 10px;">If the button is not working proper you can also click here:
     <a href="{{ $url }}">{{ $url }}</a>
-</small>
-<br>
-<a href="/itravel.ist" target="_blank">
+</p>
+<a href="https://itravel.ist" target="_blank">
     <img alt="Company Logo" src="https://itravel.ist/wp-content/uploads/2020/03/g1016.png" height="75" width="auto">
 </a>
 <br>
