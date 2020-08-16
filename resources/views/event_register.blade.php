@@ -7,7 +7,7 @@
             <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td bgcolor="#EB7035" style="padding: 12px 18px 12px 18px; border-radius:3px" align="center">
-                        <a href="{{ env('APP_URL') }}/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}"
+                        <a href="{{ $url }}/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}"
                            target="_blank"
                            style="font-size: 16px;
                            font-family: Helvetica, Arial, sans-serif;
@@ -23,8 +23,8 @@
 </table>
 <br>
 <small style="font-size: 10px;">If the button is not working proper you can also click here:
-    <a href="{{ env('APP_URL') }}/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}">
-        http://qrcode.test/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}</a>
+    <a href="{{ $url }}/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}">
+        {{ $url }}/generate?email={{ $user->email }}&companyEvent={{ $companyEvent->id }}</a>
 </small>
 <br>
 <a href="/itravel.ist" target="_blank">

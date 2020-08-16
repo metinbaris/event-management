@@ -21,6 +21,7 @@ class UserEventRegistered extends Mailable
      */
     public $user;
 
+    public $url;
     /**
      * Create a new message instance.
      * @param CompanyEvent $companyEvent
@@ -30,6 +31,7 @@ class UserEventRegistered extends Mailable
     {
         $this->companyEvent = $companyEvent;
         $this->user = $user;
+        $this->url = env('APP_URL');
     }
 
     /**
