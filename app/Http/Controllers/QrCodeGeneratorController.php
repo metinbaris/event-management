@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\CompanyEvent;
+use App\Http\Controllers\QrCodeAPI\BaseApiController;
 use App\Jobs\GenerateQrCode;
 use App\User;
 use Illuminate\Http\Request;
 
-class QrCodeGeneratorController extends Controller
+class QrCodeGeneratorController extends BaseApiController
 {
     public function generate(Request $request)
     {

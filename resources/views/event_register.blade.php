@@ -1,6 +1,5 @@
 <h1>Email Approval</h1>
-<p style="font-size: 16px">Here is the link for receiving your private QrCode to {{ $companyEvent->name }} event and
-    email subscription to iTravel.ist !</p>
+<p style="font-size: 16px">Here is the link for receiving your private QrCode to {{ $companyEvent->name }}</p>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td>
@@ -22,6 +21,7 @@
         </td>
     </tr>
 </table>
+<p>Note that you are subscribing news and e-mails from iTravel.ist by approving this message !</p>
 <p style="font-size: 10px;">If the button is not working proper you can also click here:
     <a href="{{ $url }}">{{ $url }}</a>
 </p>
