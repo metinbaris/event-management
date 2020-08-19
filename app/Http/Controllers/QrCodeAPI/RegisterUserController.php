@@ -20,7 +20,14 @@ class RegisterUserController extends QrcodeBaseApiController
         $companyEvent = CompanyEvent::find($companyEventId);
         $userEvent = $this->userEventService->createUserEvent($user, $companyEvent);
         $eventAlert = $this->userEventRegistrationResponse->getEventAlertMessage($userEvent);
+        $responseUrl = $this->generateResponseUrl($companyEvent, $eventAlert);
 
-        return redirect("$companyEvent->url?eventAlert=$eventAlert[0]&eventAlertType=$eventAlert[1]");
+        return redirect($responseUrl);
+    }
+
+    private function generateResponseUrl(CompanyEvent $companyEvent, array $eventAlert): string
+    {
+        return $companyEvent->url . '?eventAlert=' . $eventAlert[ 'eventAlert' ]
+            . '&eventAlertType=' . $eventAlert[ 'eventAlertType' ];
     }
 }
