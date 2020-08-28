@@ -10,7 +10,7 @@ class RegisterUserController extends QrcodeBaseApiController
 {
     use NameFromEmail;
 
-    public function create(Request $request)
+    public function create(Request $request): string
     {
         $this->eventRegistrationValidator->validateEmailAndEvent($request);
         $email = $request->get('email');
@@ -22,7 +22,7 @@ class RegisterUserController extends QrcodeBaseApiController
         $eventAlert = $this->userEventRegistrationResponse->getEventAlertMessage($userEvent);
         $responseUrl = $this->generateResponseUrl($companyEvent, $eventAlert);
 
-        return redirect($responseUrl);
+        return $responseUrl;
     }
 
     private function generateResponseUrl(CompanyEvent $companyEvent, array $eventAlert): string
