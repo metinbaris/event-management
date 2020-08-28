@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\QrCodeAPI;
 
 use App\CompanyEvent;
-use App\Http\Controllers\QrCodeAPI\QrcodeBaseApiController;
 use App\Jobs\GenerateQrCode;
 use App\User;
 use Illuminate\Http\Request;

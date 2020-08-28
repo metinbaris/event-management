@@ -2,5 +2,5 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('/register-user', 'QrCodeAPI\RegisterUserController@create');
-Route::get('/generate', 'QrCodeAPI\QrCodeGeneratorController@generate');
+Route::post('/register-user', 'QrCodeAPI\RegisterUserController@create')->middleware(['api', 'ipMiddleware']);
+Route::get('/generate', 'QrCodeAPI\QrCodeGeneratorController@generate')->middleware('api');
