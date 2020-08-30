@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class EventRegistrationValidator
 {
-    public function validateEmailAndEvent(Request $request)
+    public function validateEmailAndEvent(Request $request): array
     {
         $validatedArray = $request->validate([
             'email' => 'required|email',
