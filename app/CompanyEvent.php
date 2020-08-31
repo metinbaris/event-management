@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
 class CompanyEvent extends Model
 {
     protected $table = 'company_events';
-    protected $fillable = ['id', 'name', 'slug'];
+    protected $fillable = ['id', 'name', 'slug', 'url', 'facebook_event'];
     protected $dates = [
         'start',
         'end',

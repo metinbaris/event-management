@@ -16,6 +16,7 @@ class CreateCompanyEventsTable extends Migration
         Schema::create('company_events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->text('url');
             $table->text('facebook_event')->nullable();
             $table->dateTime('start');
