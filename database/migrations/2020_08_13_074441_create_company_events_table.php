@@ -17,7 +17,7 @@ class CreateCompanyEventsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('url');
-            $table->text('facebook_event');
+            $table->text('facebook_event')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
             $table->timestamps();
