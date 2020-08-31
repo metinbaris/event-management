@@ -15,7 +15,7 @@ class UserEventService
     {
         $user = User::firstOrCreate(
             ['email' => $email],
-            ['password' => Hash::make('123456'), 'name' => $name]
+            ['password' => Hash::make(env('DEFAULT_PASSWORD')), 'name' => $name]
         );
 
         return $user;
