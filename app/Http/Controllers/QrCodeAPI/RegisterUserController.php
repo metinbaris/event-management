@@ -18,7 +18,8 @@ class RegisterUserController extends QrcodeBaseApiController
         $companyEventId = $request->get('companyEvent');
         $user = $this->userEventService->firstOrCreateUser($email, $name);
         $companyEvent = CompanyEvent::find($companyEventId);
-        $userEvent = $this->userEventService->createUserEvent($user, $companyEvent);
+        $emailToken = $request->get('token');
+        $userEvent = $this->userEventService->createUserEvent($user, $companyEvent, $emailToken);
         $eventAlert = $this->userEventRegistrationResponse->getEventAlertMessage($userEvent);
         $responseUrl = $this->generateResponseUrl($companyEvent, $eventAlert);
 

@@ -15,6 +15,7 @@ class CreateUserEventsTable extends Migration
         Schema::create('user_events', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('event_id');
+            $table->string('email_token');
             $table->dateTime('email_verified_at')->nullable();
             $table->dateTime('qrcode_verified_at')->nullable();
             $table->timestamps();

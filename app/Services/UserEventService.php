@@ -21,14 +21,15 @@ class UserEventService
         return $user;
     }
 
-    public function createUserEvent(User $user, CompanyEvent $event): ?UserEvent
+    public function createUserEvent(User $user, CompanyEvent $event, string $emailToken): ?UserEvent
     {
         try {
             $userEvent = UserEvent::create([
                 'user_id' => $user->id,
-                'event_id' => $event->id
+                'event_id' => $event->id,
+                'email_token' => $emailToken
             ]);
-            Mail::to($user)->send(new UserEventRegistered($event, $user));
+            Mail::to($user)->send(new UserEventRegistered($event, $user, $emailToken));
 
             return $userEvent;
         } catch (\Exception $e) {
