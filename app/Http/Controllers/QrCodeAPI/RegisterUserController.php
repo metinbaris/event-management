@@ -18,17 +18,17 @@ class RegisterUserController extends QrcodeBaseApiController
         $companyEventId = $request->get('companyEvent');
         $user = $this->userEventService->firstOrCreateUser($email, $name);
         $companyEvent = CompanyEvent::find($companyEventId);
-        $emailToken = $request->get('token');
-        $userEvent = $this->userEventService->createUserEvent($user, $companyEvent, $emailToken);
+        $token = $request->get('token');
+        $userEvent = $this->userEventService->createUserEvent($user, $companyEvent, $token);
         $eventAlert = $this->userEventRegistrationResponse->getEventAlertMessage($userEvent);
-        $responseUrl = $this->generateResponseUrl($companyEvent, $eventAlert);
+        $responseUrl = $this->generateResponseUrl($companyEvent, $eventAlert, $token);
 
         return $responseUrl;
     }
 
-    private function generateResponseUrl(CompanyEvent $companyEvent, array $eventAlert): string
+    private function generateResponseUrl(CompanyEvent $companyEvent, array $eventAlert, string $token): string
     {
         return $companyEvent->url . '?eventAlert=' . $eventAlert[ 'eventAlert' ]
-            . '&eventAlertType=' . $eventAlert[ 'eventAlertType' ];
+            . '&eventAlertType=' . $eventAlert[ 'eventAlertType' ] . '&token=' . $token;
     }
 }

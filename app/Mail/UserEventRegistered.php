@@ -27,14 +27,14 @@ class UserEventRegistered extends Mailable
      * Create a new message instance.
      * @param CompanyEvent $companyEvent
      * @param User $user
-     * @param string $emailToken
+     * @param string $token
      */
-    public function __construct(CompanyEvent $companyEvent, User $user, string $emailToken)
+    public function __construct(CompanyEvent $companyEvent, User $user, string $token)
     {
         $this->companyEvent = $companyEvent;
         $this->user = $user;
         $appUrl = env('CONNECTION_URL');
-        $this->url = "$appUrl/generateqrcode?email=$user->email&companyEvent=$companyEvent->id&emailToken=$emailToken";
+        $this->url = "$appUrl/generateqrcode?email=$user->email&companyEvent=$companyEvent->id&token=$token";
     }
 
     /**
