@@ -12,6 +12,8 @@ class QrCodeGeneratorController extends QrcodeBaseApiController
     public function generate(Request $request): string
     {
         $email = $request->get('email');
+        $token = $request->get('token');
+        $this->emailTokenService->checkEmailToken($email, $token);
         User::whereEmail($email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
         $companyEventId = $request->get('companyEvent');
         $companyEvent = CompanyEvent::find($companyEventId);
