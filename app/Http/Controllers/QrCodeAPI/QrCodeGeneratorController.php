@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class QrCodeGeneratorController extends QrcodeBaseApiController
 {
-    public function generate(Request $request)
+    public function generate(Request $request): string
     {
         $email = $request->get('email');
         User::whereEmail($email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
@@ -17,6 +17,6 @@ class QrCodeGeneratorController extends QrcodeBaseApiController
         $companyEvent = CompanyEvent::find($companyEventId);
         GenerateQrCode::dispatch($email, $companyEvent);
 
-        return redirect("https://itravel.ist/thanks-for-register?companyEvent=$companyEvent->name");
+        return "https://itravel.ist/thanks-for-register?companyEvent=$companyEvent->name";
     }
 }
