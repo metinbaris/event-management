@@ -11,11 +11,13 @@ class QrCodeGeneratorController extends QrcodeBaseApiController
 {
     public function generate(Request $request): string
     {
-        $email = $request->get('email');
+        $this->eventRegistrationValidator->validateEmailAndEvent($request);
         $token = $request->get('token');
+        $email = $request->get('email');
+        $this->userEventService->verifyUserEmail($email);
         $this->emailTokenService->checkEmailToken($email, $token);
-        User::whereEmail($email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
         $companyEventId = $request->get('companyEvent');
+        $this->userEventService->verifyUserEvent($companyEventId, $email);
         $companyEvent = CompanyEvent::find($companyEventId);
         GenerateQrCode::dispatch($email, $companyEvent);
 
