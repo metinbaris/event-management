@@ -7,7 +7,7 @@ use App\User;
 
 class EmailTokenService
 {
-    public function checkEmailToken(string $email, string $token)
+    public function checkEmailToken(string $email, string $token): UserEvent
     {
         $user = User::where('email', $email)->firstOrFail();
         $userEvent = UserEvent::where('user_id', $user->id)->where('token', $token)->firstOrFail();

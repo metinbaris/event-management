@@ -21,9 +21,9 @@ class UserEventService
         return $user;
     }
 
-    public function verifyUserEmail($email)
+    public function verifyUserEmail($email): User
     {
-        User::where('email', $email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
+        return User::where('email', $email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
     }
 
     public function verifyUserEvent(int $companyEventId, string $email): UserEvent
