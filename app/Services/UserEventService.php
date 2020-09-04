@@ -21,7 +21,7 @@ class UserEventService
         return $user;
     }
 
-    public function verifyUserEmail($email): User
+    public function verifyUserEmail($email)
     {
         return User::where('email', $email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
     }
