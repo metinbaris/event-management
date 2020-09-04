@@ -23,10 +23,10 @@ class UserEventService
 
     public function verifyUserEmail($email)
     {
-        return User::where('email', $email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
+        User::where('email', $email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
     }
 
-    public function verifyUserEvent(int $companyEventId, string $email): UserEvent
+    public function verifyUserEvent(int $companyEventId, string $email)
     {
         $userEvent = User::whereEmail($email)->with([
             'events' => function ($query) use ($companyEventId) {
@@ -35,8 +35,6 @@ class UserEventService
         ])->first();
 
         $userEvent->update(['email_verified_at' => date('Y-m-d H:i:s')]);
-
-        return $userEvent;
     }
 
     public function createUserEvent(User $user, CompanyEvent $event, string $token): ?UserEvent
