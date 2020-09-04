@@ -43,6 +43,6 @@ class UserEventRegistered extends Mailable
      */
     public function build()
     {
-        return $this->subject('Email Confirmation & Event Registration')->view('event_register');
+        return $this->subject('Email Confirmation & Event Registration')->view('emails.event_register');
     }
 }

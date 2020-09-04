@@ -14,7 +14,7 @@ class QrCodeGeneratorController extends QrcodeBaseApiController
             $companyEvent = CompanyEvent::find($request->get('companyEvent'));
             GenerateQrCode::dispatch($request->get('email'), $companyEvent);
 
-            return "https://itravel.ist/thanks-for-register?companyEvent=$companyEvent->name";
+            return "https://itravel.ist/thanks-for-registration?companyEvent=$companyEvent->name";
         }
 
         return "something went wrong page in itravelist";
@@ -33,6 +33,8 @@ class QrCodeGeneratorController extends QrcodeBaseApiController
 
             return true;
         } catch (\Exception $e) {
+            $this->report($e);
+
             return false;
         }
     }

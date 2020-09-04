@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Responses\UserEventRegistrationResponse;
 use App\Services\EmailTokenService;
 use App\Services\UserEventService;
+use App\Traits\ErrorReport;
 use App\Validators\EventRegistrationValidator;
 
 class QrcodeBaseApiController extends Controller
 {
+    use ErrorReport;
+
     protected $eventRegistrationValidator;
     protected $userEventService;
     protected $userEventRegistrationResponse;
