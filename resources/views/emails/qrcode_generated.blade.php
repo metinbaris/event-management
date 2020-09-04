@@ -1,5 +1,5 @@
 <h1>Entrance of {{ $companyEvent->name }}</h1>
-<p>Here is your event entrance generated code, enjoy it and let's keep in touch !</p>
+<p>Here is your event entrance generated code, please don't forget to bring this code to the event</p>
 <p><img alt="Embedded QrCode Image" src="{{ $message->embed($qrCode->writeDataUri()) }}" width="200" height="200"></p>
 <p>Note that this entrance is for 1(one) person</p>
 <a href="https://itravel.ist" target="_blank">

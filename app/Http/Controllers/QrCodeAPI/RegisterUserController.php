@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\QrCodeAPI;
 
 use App\CompanyEvent;
+use App\Responses\RegisterUserResponse;
 use Illuminate\Http\Request;
 use App\Traits\NameFromEmail;
 
-class RegisterUserController extends QrcodeBaseApiController
+class RegisterUserController extends QrCodeBaseApiController
 {
     use NameFromEmail;
 
@@ -20,15 +21,9 @@ class RegisterUserController extends QrcodeBaseApiController
         $companyEvent = CompanyEvent::find($companyEventId);
         $token = $request->get('token');
         $userEvent = $this->userEventService->createUserEvent($user, $companyEvent, $token);
-        $eventAlert = $this->userEventRegistrationResponse->getEventAlertMessage($userEvent);
-        $responseUrl = $this->generateResponseUrl($companyEvent, $eventAlert);
+        $response = new RegisterUserResponse($companyEvent);
+        $responseUrl = $response->setEventAlertMessage($userEvent)->generateResponseUrl();
 
         return $responseUrl;
-    }
-
-    private function generateResponseUrl(CompanyEvent $companyEvent, array $eventAlert): string
-    {
-        return $companyEvent->url . '?eventAlert=' . $eventAlert[ 'eventAlert' ]
-            . '&eventAlertType=' . $eventAlert[ 'eventAlertType' ];
     }
 }
