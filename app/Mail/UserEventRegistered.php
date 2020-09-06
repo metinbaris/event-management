@@ -12,15 +12,9 @@ use Illuminate\Queue\SerializesModels;
 class UserEventRegistered extends Mailable
 {
     use Queueable, SerializesModels;
-    /**
-     * @var CompanyEvent
-     */
-    public $companyEvent;
-    /**
-     * @var User
-     */
-    public $user;
 
+    public $companyEvent;
+    public $user;
     public $url;
 
     /**
@@ -33,8 +27,8 @@ class UserEventRegistered extends Mailable
     {
         $this->companyEvent = $companyEvent;
         $this->user = $user;
-        $appUrl = env('CONNECTION_URL');
-        $this->url = "$appUrl/generateqrcode?email=$user->email&companyEvent=$companyEvent->id&token=$token";
+        $connectionUrl = env('CONNECTION_URL');
+        $this->url = "$connectionUrl/generateqrcode?email=$user->email&companyEvent=$companyEvent->id&token=$token";
     }
 
     /**
