@@ -4,21 +4,22 @@ namespace App\Http\Controllers\QrCodeAPI;
 
 use App\CompanyEvent;
 use App\Jobs\GenerateQrCode;
+use App\Responses\QrCodeGeneratorResponse;
 use Illuminate\Http\Request;
 
 class QrCodeGeneratorController extends QrCodeBaseApiController
 {
     public function generate(Request $request): string
     {
+        $companyEvent = [];
         if ($this->verifyRequestCredentials($request)) {
             $companyEvent = CompanyEvent::find($request->get('companyEvent'));
             GenerateQrCode::dispatch($request->get('email'), $companyEvent);
-            $eventAlert = $this->qrCodeGenerationResponse->getQrCodeAlertMessage();
-
-            return $this->generateResponseUrl($companyEvent, $eventAlert);
         }
+        $response = new QrCodeGeneratorResponse();
+        $responseUrl = $response->setQrCodeAlertMessage($companyEvent)->generateResponseUrl();
 
-        return "something went wrong page in itravelist";
+        return $responseUrl;
     }
 
     private function verifyRequestCredentials(Request $request): bool
@@ -38,11 +39,5 @@ class QrCodeGeneratorController extends QrCodeBaseApiController
 
             return false;
         }
-    }
-
-    private function generateResponseUrl(CompanyEvent $companyEvent, array $eventAlert): string
-    {
-        return $companyEvent->url . '?eventAlert=' . $eventAlert[ 'eventAlert' ]
-            . '&eventAlertType=' . $eventAlert[ 'eventAlertType' ];
     }
 }

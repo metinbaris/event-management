@@ -2,15 +2,40 @@
 
 namespace App\Responses;
 
+use App\CompanyEvent;
+
 class QrCodeGeneratorResponse
 {
     const Thanks = 'We generated your qrcode, please check your inbox';
+    const SomethingWentWrong = 'Something went wrong';
+    protected $companyEvent;
+    protected $eventAlert;
 
-    public function getQrCodeAlertMessage(): array
+    public function __construct(CompanyEvent $companyEvent)
     {
-        return [
+        $this->companyEvent = $companyEvent;
+    }
+
+    public function setQrCodeAlertMessage(?CompanyEvent $companyEvent): self
+    {
+        if (empty($compa8nyEvent)) {
+            $this->eventAlert = [
+                'eventAlert' => urlencode(self::SomethingWentWrong),
+                'eventAlertType' => 'fail'
+            ];
+        }
+
+        $this->eventAlert = [
             'eventAlert' => urlencode(self::Thanks),
             'eventAlertType' => 'success'
         ];
+
+        return $this;
+    }
+
+    public function generateResponseUrl(CompanyEvent $companyEvent, array $eventAlert): string
+    {
+        return $companyEvent->url . '?eventAlert=' . $eventAlert[ 'eventAlert' ]
+            . '&eventAlertType=' . $eventAlert[ 'eventAlertType' ];
     }
 }
