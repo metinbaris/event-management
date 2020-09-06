@@ -24,6 +24,8 @@ class RegisterUserResponse
                 'eventAlert' => urlencode(self::RegisteredBefore),
                 'eventAlertType' => 'fail'
             ];
+
+            return $this;
         }
 
         $this->eventAlert = [

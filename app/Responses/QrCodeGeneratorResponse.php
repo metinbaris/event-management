@@ -18,11 +18,13 @@ class QrCodeGeneratorResponse
 
     public function setQrCodeAlertMessage(?CompanyEvent $companyEvent): self
     {
-        if (empty($compa8nyEvent)) {
+        if (empty($companyEvent)) {
             $this->eventAlert = [
                 'eventAlert' => urlencode(self::SomethingWentWrong),
                 'eventAlertType' => 'fail'
             ];
+
+            return $this;
         }
 
         $this->eventAlert = [
