@@ -11,14 +11,14 @@ class QrCodeGeneratorResponse
     protected $companyEvent;
     protected $eventAlert;
 
-    public function __construct(CompanyEvent $companyEvent)
+    public function __construct(?CompanyEvent $companyEvent)
     {
         $this->companyEvent = $companyEvent;
     }
 
-    public function setQrCodeAlertMessage(?CompanyEvent $companyEvent): self
+    public function setQrCodeAlertMessage(): self
     {
-        if (empty($companyEvent)) {
+        if (empty($this->companyEvent)) {
             $this->eventAlert = [
                 'eventAlert' => urlencode(self::SomethingWentWrong),
                 'eventAlertType' => 'fail'
@@ -35,9 +35,14 @@ class QrCodeGeneratorResponse
         return $this;
     }
 
-    public function generateResponseUrl(CompanyEvent $companyEvent, array $eventAlert): string
+    public function generateResponseUrl(): string
     {
-        return $companyEvent->url . '?eventAlert=' . $eventAlert[ 'eventAlert' ]
-            . '&eventAlertType=' . $eventAlert[ 'eventAlertType' ];
+        $url = env('APP_URL');
+        if (! empty($this->companyEvent)) {
+            $url = $this->companyEvent->url;
+        }
+
+        return $url . '?eventAlert=' . $this->eventAlert[ 'eventAlert' ]
+            . '&eventAlertType=' . $this->eventAlert[ 'eventAlertType' ];
     }
 }
