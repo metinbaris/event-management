@@ -4,7 +4,7 @@ namespace App\Http\Controllers\QrCodeAPI;
 
 use App\CompanyEvent;
 use App\Jobs\GenerateQrCode;
-use App\Responses\QrCodeGeneratorResponse;
+use App\Http\Responses\QrCodeGeneratorResponse;
 use Illuminate\Http\Request;
 
 class QrCodeGeneratorController extends QrCodeBaseApiController

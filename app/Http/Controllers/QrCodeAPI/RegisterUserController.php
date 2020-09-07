@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\QrCodeAPI;
 
 use App\CompanyEvent;
-use App\Responses\RegisterUserResponse;
+use App\Http\Responses\RegisterUserResponse;
 use Illuminate\Http\Request;
 use App\Traits\NameFromEmail;
 
