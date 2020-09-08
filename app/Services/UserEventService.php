@@ -21,31 +21,26 @@ class UserEventService
         return $user;
     }
 
-    public function verifyUserEmail($email)
+    public function verifyUserEmail(User $user)
     {
-        User::where('email', $email)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
+        $user->update(['email_verified_at' => date('Y-m-d H:i:s')]);
     }
 
-    public function verifyUserEvent(int $companyEventId, string $email)
+    public function verifyUserEvent(int $userId, int $companyEventId)
     {
-        $userEvent = User::whereEmail($email)->with([
-            'events' => function ($query) use ($companyEventId) {
-                $query->where('event_id', $companyEventId);
-            }
-        ])->first();
-
+        $userEvent = UserEvent::whereUserId($userId)->whereEventId($companyEventId)->whereNull('email_verified_at')->firstOrFail();
         $userEvent->update(['email_verified_at' => date('Y-m-d H:i:s')]);
     }
 
-    public function createUserEvent(User $user, CompanyEvent $event, string $token): ?UserEvent
+    public function createUserEvent(User $user, CompanyEvent $companyEvent, string $token): ?UserEvent
     {
         try {
             $userEvent = UserEvent::create([
                 'user_id' => $user->id,
-                'event_id' => $event->id,
+                'event_id' => $companyEvent->id,
                 'token' => $token
             ]);
-            Mail::to($user)->send(new UserEventRegistered($event, $user, $token));
+            Mail::to($user)->send(new UserEventRegistered($companyEvent, $user, $token));
 
             return $userEvent;
         } catch (\Exception $e) {

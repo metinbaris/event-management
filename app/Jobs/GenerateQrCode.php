@@ -29,7 +29,7 @@ class GenerateQrCode implements ShouldQueue
     protected $companyEvent;
 
     /**
-     * Create a new job instance.
+     * GenerateQrCode constructor.
      * @param string $email
      * @param CompanyEvent $companyEvent
      */
@@ -51,7 +51,7 @@ class GenerateQrCode implements ShouldQueue
 
     private function createNewQrCode(string $email, CompanyEvent $companyEvent)
     {
-        $url = env('CONNECTION_URL') . '/qrcodecheck/' . $email . '/' . $companyEvent->id;
+        $url = env('CONNECTION_URL') . '/checkqrcode?email=' . $email . '&companyEvent=' . $companyEvent->id;
         $qrCode = new QrCode($url);
 
         return $qrCode;

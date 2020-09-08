@@ -5,6 +5,7 @@ namespace App\Http\Controllers\QrCodeAPI;
 use App\CompanyEvent;
 use App\Jobs\GenerateQrCode;
 use App\Http\Responses\QrCodeGeneratorResponse;
+use App\User;
 use Illuminate\Http\Request;
 
 class QrCodeGeneratorController extends QrCodeBaseApiController
@@ -29,9 +30,10 @@ class QrCodeGeneratorController extends QrCodeBaseApiController
             $token = $request->get('token');
             $email = $request->get('email');
             $companyEventId = $request->get('companyEvent');
-            $this->userEventService->verifyUserEmail($email);
-            $this->emailTokenService->checkEmailToken($email, $token);
-            $this->userEventService->verifyUserEvent($companyEventId, $email);
+            $user = User::whereEmail($email)->firstOrFail();
+            $this->userEventService->verifyUserEmail($user);
+            $this->emailTokenService->checkEmailToken($user, $token);
+            $this->userEventService->verifyUserEvent($user->id, $companyEventId);
 
             return true;
         } catch (\Exception $e) {
