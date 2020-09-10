@@ -20,9 +20,9 @@ class CreateUserEventsTable extends Migration
             $table->dateTime('qrcode_verified_at')->nullable();
             $table->timestamps();
 
-            $table->primary(['user_id', 'event_id']);
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('event_id')->references('id')->on('company_events');
+            $table->primary(['user_id', 'event_id']);
         });
     }
 

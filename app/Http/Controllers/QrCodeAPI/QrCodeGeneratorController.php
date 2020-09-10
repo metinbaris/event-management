@@ -12,7 +12,7 @@ class QrCodeGeneratorController extends QrCodeBaseApiController
 {
     public function generate(Request $request): string
     {
-        $companyEvent = [];
+        $companyEvent = null;
         if ($this->verifyRequestCredentials($request)) {
             $companyEvent = CompanyEvent::find($request->get('companyEvent'));
             GenerateQrCode::dispatch($request->get('email'), $companyEvent);

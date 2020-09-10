@@ -69,18 +69,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\CompanyEvent', 'user_events', 'user_id', 'event_id');
     }
-
-    /**
-     * @param string $email
-     * @param int $companyEventId
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
-     */
-    public static function findEventByEmailAndEventId(string $email, int $companyEventId)
-    {
-        return User::whereEmail($email)->with([
-            'events' => function ($query) use ($companyEventId) {
-                $query->where('event_id', $companyEventId);
-            }
-        ])->first();
-    }
 }

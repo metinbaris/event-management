@@ -28,7 +28,9 @@ class UserEventService
 
     public function verifyUserEvent(int $userId, int $companyEventId)
     {
-        $userEvent = UserEvent::whereUserId($userId)->whereEventId($companyEventId)->whereNull('email_verified_at')->firstOrFail();
+        $userEvent = UserEvent::select('*')->where('user_id', '=', $userId)->where('event_id', '=', $companyEventId)
+            ->whereNull('email_verified_at')->firstOrFail();
+
         $userEvent->update(['email_verified_at' => date('Y-m-d H:i:s')]);
     }
 
