@@ -15,7 +15,7 @@ class QrCodeGeneratorController extends QrCodeBaseApiController
         $companyEvent = null;
         if ($this->verifyRequestCredentials($request)) {
             $companyEvent = CompanyEvent::find($request->get('companyEvent'));
-            GenerateQrCode::dispatch($request->get('email'), $companyEvent);
+            GenerateQrCode::dispatch($request->get('email'), $companyEvent, $request->get('token'));
         }
         $response = new QrCodeGeneratorResponse($companyEvent);
         $responseUrl = $response->setQrCodeAlertMessage()->generateResponseUrl();

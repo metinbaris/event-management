@@ -27,16 +27,22 @@ class GenerateQrCode implements ShouldQueue
      * @var CompanyEvent
      */
     protected $companyEvent;
+    /**
+     * @var string
+     */
+    protected $token;
 
     /**
      * GenerateQrCode constructor.
      * @param string $email
      * @param CompanyEvent $companyEvent
+     * @param string $token
      */
-    public function __construct(string $email, CompanyEvent $companyEvent)
+    public function __construct(string $email, CompanyEvent $companyEvent, string $token)
     {
         $this->email = $email;
         $this->companyEvent = $companyEvent;
+        $this->token = $token;
     }
 
     /**
@@ -51,7 +57,7 @@ class GenerateQrCode implements ShouldQueue
 
     private function createNewQrCode(string $email, CompanyEvent $companyEvent)
     {
-        $url = env('CONNECTION_URL') . '/checkqrcode?email=' . $email . '&companyEvent=' . $companyEvent->id;
+        $url = env('CONNECTION_URL') . '/checkqrcode?email=' . $email . '&companyEvent=' . $companyEvent->id . '&token=' . $this->token;
         $qrCode = new QrCode($url);
 
         return $qrCode;
