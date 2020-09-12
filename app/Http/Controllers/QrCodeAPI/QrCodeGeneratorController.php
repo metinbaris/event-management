@@ -6,7 +6,7 @@ use App\CompanyEvent;
 use App\Jobs\GenerateQrCode;
 use App\Http\Responses\QrCodeGeneratorResponse;
 use App\User;
-use Illuminate\Http\Request;
+use Request;
 
 class QrCodeGeneratorController extends QrCodeBaseApiController
 {
@@ -37,7 +37,7 @@ class QrCodeGeneratorController extends QrCodeBaseApiController
 
             return true;
         } catch (\Exception $e) {
-            $this->report($e);
+            $this->reportAsMail($e);
 
             return false;
         }

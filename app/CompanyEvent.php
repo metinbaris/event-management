@@ -27,6 +27,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|CompanyEvent whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompanyEvent whereUrl($value)
  * @mixin \Eloquent
+ * @property string $slug
+ * @property string|null $facebook_event
+ * @method static \Illuminate\Database\Eloquent\Builder|CompanyEvent whereFacebookEvent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompanyEvent whereSlug($value)
  */
 class CompanyEvent extends Model
 {

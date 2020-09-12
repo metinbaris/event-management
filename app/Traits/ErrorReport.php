@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Mail;
 
 trait ErrorReport
 {
-    public function report(\Exception $exception)
+    public function reportAsMail(\Exception $exception)
     {
         $data = $exception->getMessage();
         Mail::raw("There was an error : $data", function ($message) {
