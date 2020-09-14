@@ -18,7 +18,7 @@ class QrCodeValidationResponse
 
     public function setQrCodeAlertMessage(): self
     {
-        if (empty($this->companyEvent)) {
+        if (empty($this->userEvent)) {
             $this->eventAlert = [
                 'eventAlert' => urlencode(self::SomethingWentWrong),
                 'eventAlertType' => 'fail'
