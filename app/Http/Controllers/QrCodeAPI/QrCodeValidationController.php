@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\QrCodeAPI;
 
 use App\Http\Responses\QrCodeValidationResponse;
-use App\UserEvent;
-use Request;
 use App\User;
+use App\UserEvent;
+use Illuminate\Http\Request;
 
 class QrCodeValidationController extends QrCodeBaseApiController
 {

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\QrCodeAPI;
 
 use App\CompanyEvent;
-use App\Jobs\GenerateQrCode;
 use App\Http\Responses\QrCodeGeneratorResponse;
+use App\Jobs\GenerateQrCode;
 use App\User;
-use Request;
+use Illuminate\Http\Request;
 
 class QrCodeGeneratorController extends QrCodeBaseApiController
 {

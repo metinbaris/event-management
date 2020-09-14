@@ -4,8 +4,8 @@ namespace App\Http\Controllers\QrCodeAPI;
 
 use App\CompanyEvent;
 use App\Http\Responses\RegisterUserResponse;
-use Request;
 use App\Traits\NameFromEmail;
+use Illuminate\Http\Request;
 
 class RegisterUserController extends QrCodeBaseApiController
 {
