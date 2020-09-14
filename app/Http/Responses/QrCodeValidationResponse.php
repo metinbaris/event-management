@@ -6,7 +6,7 @@ use App\UserEvent;
 
 class QrCodeValidationResponse
 {
-    const Thanks = 'This QrCode is Validated';
+    const Thanks = 'QrCode is Validated';
     const SomethingWentWrong = 'Something went wrong';
     protected $userEvent;
     protected $eventAlert;

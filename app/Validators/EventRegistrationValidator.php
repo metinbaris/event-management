@@ -2,7 +2,7 @@
 
 namespace App\Validators;
 
-use Illuminate\Http\Request;
+use Request;
 
 class EventRegistrationValidator
 {
