@@ -27,7 +27,7 @@ class QrCodeValidationController extends QrCodeBaseApiController
 
     private function verifiedRequestCredentials(Request $request)
     {
-        $user = User::findVerifiedByEmail($request->get('email'));
+        $user = User::where('email', $request->get('email'))->first();
 
         return UserEvent::where('token', $request->get('token'))
             ->where('event_id', $request->get('companyEvent'))

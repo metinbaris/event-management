@@ -41,9 +41,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\CompanyEvent', 'user_events', 'user_id', 'event_id');
     }
-
-    public static function findVerifiedByEmail(string $email)
-    {
-        return User::where('email', $email)->whereNotNull('email_verified_at')->firstOrFail();
-    }
 }
