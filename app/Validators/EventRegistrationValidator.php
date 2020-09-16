@@ -10,7 +10,7 @@ class EventRegistrationValidator
     {
         $validatedArray = $request->validate([
             'email' => 'required|email',
-            'companyEvent' => 'exists:company_events,id|required',
+            'companyEvent' => 'exists:company_events,slug|required',
             'token' => 'required|string'
         ]);
 

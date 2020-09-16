@@ -57,7 +57,7 @@ class GenerateQrCode implements ShouldQueue
 
     private function createNewQrCode(string $email, CompanyEvent $companyEvent)
     {
-        $url = env('CONNECTION_URL') . '/checkqrcode?email=' . $email . '&companyEvent=' . $companyEvent->id . '&token=' . $this->token;
+        $url = env('CONNECTION_URL') . '/checkqrcode?email=' . $email . '&companyEvent=' . $companyEvent->slug . '&token=' . $this->token;
         $qrCode = new QrCode($url);
 
         return $qrCode;

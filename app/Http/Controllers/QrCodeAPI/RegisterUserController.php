@@ -16,9 +16,9 @@ class RegisterUserController extends QrCodeBaseApiController
         $this->eventRegistrationValidator->validateEmailAndEvent($request);
         $email = $request->get('email');
         $name = $this->getNameFromEmail($email);
-        $companyEventId = $request->get('companyEvent');
+        $companyEventSlug = $request->get('companyEvent');
         $user = $this->userEventService->firstOrCreateUser($email, $name);
-        $companyEvent = CompanyEvent::find($companyEventId);
+        $companyEvent = CompanyEvent::where('slug', $companyEventSlug)->first();
         $token = $request->get('token');
         $userEvent = $this->userEventService->createUserEvent($user, $companyEvent, $token);
         $response = new RegisterUserResponse($companyEvent);

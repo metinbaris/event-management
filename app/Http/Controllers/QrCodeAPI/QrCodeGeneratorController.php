@@ -14,7 +14,7 @@ class QrCodeGeneratorController extends QrCodeBaseApiController
     {
         $companyEvent = null;
         if ($this->verifyRequestCredentials($request)) {
-            $companyEvent = CompanyEvent::find($request->get('companyEvent'));
+            $companyEvent = CompanyEvent::where('slug', $request->get('companyEvent'))->first();
             GenerateQrCode::dispatch($request->get('email'), $companyEvent, $request->get('token'));
         }
         $response = new QrCodeGeneratorResponse($companyEvent);
@@ -29,11 +29,11 @@ class QrCodeGeneratorController extends QrCodeBaseApiController
             $this->eventRegistrationValidator->validateEmailAndEvent($request);
             $token = $request->get('token');
             $email = $request->get('email');
-            $companyEventId = $request->get('companyEvent');
+            $companyEventSlug = $request->get('companyEvent');
             $user = User::whereEmail($email)->firstOrFail();
             $this->userEventService->verifyUserEmail($user);
             $this->emailTokenService->checkEmailToken($user, $token);
-            $this->userEventService->verifyUserEvent($user->id, $companyEventId);
+            $this->userEventService->verifyUserEvent($user->id, $companyEventSlug);
 
             return true;
         } catch (\Exception $e) {

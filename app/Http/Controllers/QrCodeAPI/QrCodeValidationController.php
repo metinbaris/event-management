@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\QrCodeAPI;
 
+use App\CompanyEvent;
 use App\Http\Responses\QrCodeValidationResponse;
 use App\User;
 use App\UserEvent;
@@ -28,9 +29,10 @@ class QrCodeValidationController extends QrCodeBaseApiController
     private function verifiedRequestCredentials(Request $request)
     {
         $user = User::where('email', $request->get('email'))->first();
+        $event = CompanyEvent::where('slug', $request->get('companyEvent'))->first();
 
         return UserEvent::where('token', $request->get('token'))
-            ->where('event_id', $request->get('companyEvent'))
+            ->where('event_id', $event->id)
             ->where('user_id', $user->id)
             ->whereNotNull('email_verified_at')
             ->with('user')
