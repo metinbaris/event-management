@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\User;
+use App\UserEvent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -16,12 +18,15 @@ class RegisterUserTest extends TestCase
     public function testRegisterNewUser()
     {
         $response = $this->post('/register-user', [
-            'email' => 'mizbocom@gmail.com',
+            'email' => 'register_new_user_test_123456123@gmail.com',
             'companyEvent' => 'istanbul-boat-party',
             'token' => 'sample_token_123456'
         ]);
 
         $response->assertDontSeeText('fail');
         $response->assertStatus(200);
+        $user = User::where('email','register_new_user_test_123456123@gmail.com')->first();
+        UserEvent::where('user_id', $user->id)->first()->delete();
+        $user->delete();
     }
 }
