@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\User;
 use App\UserEvent;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RegisterUserTest extends TestCase
