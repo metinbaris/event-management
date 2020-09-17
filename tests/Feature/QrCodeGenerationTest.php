@@ -26,10 +26,10 @@ class QrCodeGenerationTest extends TestCase
 
         $response->assertDontSeeText('fail');
         $response->assertStatus(200);
-        $this->removeDatabaseInserts();
+        $this->removeDatabaseInsertions();
     }
 
-    private function removeDatabaseInserts()
+    private function removeDatabaseInsertions()
     {
         $user = User::where('email', 'qr_generation_test_123456000000@gmail.com')->first();
         $userEvent = UserEvent::where('user_id', $user->id)->first();

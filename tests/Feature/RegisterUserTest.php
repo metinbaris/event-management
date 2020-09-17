@@ -25,7 +25,12 @@ class RegisterUserTest extends TestCase
 
         $response->assertDontSeeText('fail');
         $response->assertStatus(200);
-        $user = User::where('email','register_new_user_test_123456123@gmail.com')->first();
+        $this->removeDatabaseInsertions();
+    }
+
+    private function removeDatabaseInsertions()
+    {
+        $user = User::where('email', 'register_new_user_test_123456123@gmail.com')->first();
         UserEvent::where('user_id', $user->id)->first()->delete();
         $user->delete();
     }
