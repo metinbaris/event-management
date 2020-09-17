@@ -8,20 +8,17 @@ use Tests\TestCase;
 
 class RegisterAlreadyRegisteredUserTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
-        $this->artisan('db:seed');
     }
 
     public function testAlreadyRegisteredUser()
     {
         $response = $this->post('/register-user', [
-            'email' => 'hizmetparki@gmail.com',
+            'email' => 'alreadyregistereduser_test111@gmail.com',
             'companyEvent' => 'istanbul-boat-party',
-            'token' => str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+            'token' => 'sample_token_123456'
         ]);
 
         $response->assertDontSeeText('success');
