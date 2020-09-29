@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class QrCodeValidationController extends QrCodeBaseApiController
 {
-    public function validateQrCode(Request $request)
+    public function validateQrCode(Request $request): string
     {
         $this->eventRegistrationValidator->validateEmailAndEvent($request);
         $userEvent = null;
