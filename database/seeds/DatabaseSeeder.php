@@ -12,6 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
-        DB::unprepared(file_get_contents(database_path() . '\import.sql'));
+        DB::unprepared(file_get_contents(database_path() . '/import.sql'));
     }
 }
