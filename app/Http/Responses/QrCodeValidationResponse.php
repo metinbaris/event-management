@@ -37,9 +37,10 @@ class QrCodeValidationResponse
 
     public function generateResponseUrl(): string
     {
-        $url = $this->userEvent->companyEvent->url ?? env('APP_URL');
+        if ($this->eventAlert[ 'eventAlertType' ] === 'success') {
+            return env('APP_QRCODE_VALIDATION_PAGE');
+        }
 
-        return $url . '?eventAlert=' . $this->eventAlert[ 'eventAlert' ]
-            . '&eventAlertType=' . $this->eventAlert[ 'eventAlertType' ];
+        return env('APP_404');
     }
 }
