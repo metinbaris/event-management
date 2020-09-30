@@ -37,7 +37,7 @@ class QrCodeGeneratorResponse
 
     public function generateResponseUrl(): string
     {
-        $url = env('APP_URL');
+        $url = env('APP_404');
         if (! empty($this->companyEvent)) {
             $url = $this->companyEvent->url;
         }

@@ -17,7 +17,7 @@ class QrCodeValidationTest extends TestCase
     {
         $response = $this->post('/validate-qrcode', [
             'email' => 'qr_validation_test_123456000000@gmail.com',
-            'companyEvent' => 'istanbul-boat-party',
+            'companyEvent' => 'istanbul-boat-tour',
             'token' => 'sample_token_123456'
         ]);
 

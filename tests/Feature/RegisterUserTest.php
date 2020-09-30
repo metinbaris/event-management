@@ -17,7 +17,7 @@ class RegisterUserTest extends TestCase
     {
         $response = $this->post('/register-user', [
             'email' => 'register_new_user_test_123456123@gmail.com',
-            'companyEvent' => 'istanbul-boat-party',
+            'companyEvent' => 'istanbul-boat-tour',
             'token' => 'sample_token_123456'
         ]);
 

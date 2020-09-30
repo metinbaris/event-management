@@ -17,7 +17,7 @@ class QrCodeGenerationTest extends TestCase
     {
         $response = $this->post('/generate-qrcode', [
             'email' => 'qr_generation_test_123456000000@gmail.com',
-            'companyEvent' => 'istanbul-boat-party',
+            'companyEvent' => 'istanbul-boat-tour',
             'token' => 'sample_token_123456'
         ]);
 
