@@ -38,6 +38,8 @@ class QrCodeGenerated extends Mailable
      */
     public function build()
     {
-        return $this->subject('Event Registration Completed')->view('emails.qrcode_generated');
+        return $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
+            ->subject('Event Registration Completed')
+            ->view('emails.qrcode_generated');
     }
 }
