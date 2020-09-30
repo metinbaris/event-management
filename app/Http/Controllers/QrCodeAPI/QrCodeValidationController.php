@@ -12,7 +12,7 @@ class QrCodeValidationController extends QrCodeBaseApiController
 {
     public function validateQrCode(Request $request): string
     {
-        $this->eventRegistrationValidator->validateEmailAndEvent($request);
+        $userData = $this->eventRegistrationValidator->validateEmailAndEvent($request);
         $userEvent = null;
         try {
             $userEvent = $this->verifiedRequestCredentials($request);
@@ -20,7 +20,7 @@ class QrCodeValidationController extends QrCodeBaseApiController
         } catch (\Exception $e) {
             $this->reportAsMail($e);
         }
-        $response = new QrCodeValidationResponse($userEvent);
+        $response = new QrCodeValidationResponse($userEvent, $userData);
         $responseUrl = $response->setQrCodeAlertMessage()->generateResponseUrl();
 
         return $responseUrl;
