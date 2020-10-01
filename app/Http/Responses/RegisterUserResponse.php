@@ -52,4 +52,11 @@ class RegisterUserResponse
         return $this->userRegisterService->getCompanyEvent()->url . '?eventAlert=' . $this->eventAlert[ 'eventAlert' ]
             . '&eventAlertType=' . $this->eventAlert[ 'eventAlertType' ];
     }
+
+    public static function response(UserRegisterService $userRegisterService): string
+    {
+        $response = new self($userRegisterService);
+
+        return $response->setEventAlertMessage()->generateResponseUrl();
+    }
 }

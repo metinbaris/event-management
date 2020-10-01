@@ -17,10 +17,8 @@ class RegisterUserController extends QrCodeBaseApiController
             $request->get('companyEvent')
         )->registerUserToEvent();
 
-        $response = new RegisterUserResponse($userRegisterService);
+        $response = RegisterUserResponse::response($userRegisterService);
 
-        $responseUrl = $response->setEventAlertMessage()->generateResponseUrl();
-
-        return $responseUrl;
+        return $response;
     }
 }
