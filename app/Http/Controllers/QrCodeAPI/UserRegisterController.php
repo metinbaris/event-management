@@ -6,7 +6,7 @@ use App\Http\Responses\RegisterUserResponse;
 use App\Services\UserRegisterService;
 use Illuminate\Http\Request;
 
-class RegisterUserController extends QrCodeBaseApiController
+class UserRegisterController extends QrCodeBaseApiController
 {
     public function create(Request $request, UserRegisterService $userRegisterService): string
     {

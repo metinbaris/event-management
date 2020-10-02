@@ -26,6 +26,10 @@ class UserEventService
         $user->update(['email_verified_at' => date('Y-m-d H:i:s')]);
     }
 
+    /** Generates qrcode if the user email is not verified so the qrcode is not generated yet.
+     * @param int $userId
+     * @param string $companyEventSlug
+     */
     public function verifyUserEvent(int $userId, string $companyEventSlug)
     {
         $companyEvent = CompanyEvent::whereSlug($companyEventSlug)->first();

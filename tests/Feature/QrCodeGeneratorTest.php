@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class QrCodeValidationTest extends TestCase
+class QrCodeGeneratorTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations, WithFaker;
 
@@ -27,19 +27,23 @@ class QrCodeValidationTest extends TestCase
      */
     protected $sample_token = 'sample_token';
 
-    public function testQrValidation()
+    public function testQrGeneration()
     {
-        $this->create_database_credentials();
-        $response = $this->post('/validate-qrcode', [
+        $this->create_required_database_credentials();
+        $response = $this->post('/generate-qrcode', [
             'email' => $this->user_email_address,
             'companyEvent' => $this->company_event_slug,
             'token' => $this->sample_token
         ]);
         $response->assertDontSeeText('fail');
+        $response->assertSeeText('success');
         $response->assertStatus(200);
     }
 
-    private function create_database_credentials()
+    /**
+     *
+     */
+    private function create_required_database_credentials()
     {
         $company_event = CompanyEvent::create([
             'name' => $this->faker->streetName,
@@ -60,7 +64,7 @@ class QrCodeValidationTest extends TestCase
             'user_id' => $user->id,
             'event_id' => $company_event->id,
             'token' => $this->sample_token,
-            'email_verified_at' => $this->faker->dateTime,
+            'email_verified_at' => null,
             'qrcode_verified_at' => null
         ]);
     }

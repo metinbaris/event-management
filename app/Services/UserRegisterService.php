@@ -7,7 +7,7 @@ use App\Traits\NameFromEmail;
 use App\User;
 use App\UserEvent;
 
-class UserRegisterService extends UserEventService
+class UserRegisterService
 {
     use NameFromEmail;
 
@@ -16,6 +16,16 @@ class UserRegisterService extends UserEventService
     protected $token;
     protected $companyEvent;
     protected $userEvent;
+    protected $userEventService;
+
+    /**
+     * UserRegisterService constructor.
+     * @param UserEventService $userEventService
+     */
+    public function __construct(UserEventService $userEventService)
+    {
+        $this->userEventService = $userEventService;
+    }
 
     /**
      * @var User
@@ -36,7 +46,7 @@ class UserRegisterService extends UserEventService
     public function registerUserToEvent(): self
     {
         $this->registerUser();
-        $userEvent = $this->createUserEvent($this->user, $this->companyEvent, $this->token);
+        $userEvent = $this->userEventService->createUserEvent($this->user, $this->companyEvent, $this->token);
         $this->setUserEvent($userEvent);
 
         return $this;
@@ -44,7 +54,7 @@ class UserRegisterService extends UserEventService
 
     public function registerUser()
     {
-        $this->user = $this->firstOrCreateUser($this->email, $this->name);
+        $this->user = $this->userEventService->firstOrCreateUser($this->email, $this->name);
     }
 
     /**

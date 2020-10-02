@@ -2,34 +2,35 @@
 
 namespace Tests\Feature;
 
-use App\User;
-use App\UserEvent;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RegisterUserTest extends TestCase
 {
+    use RefreshDatabase, DatabaseMigrations;
+
     public function setUp(): void
     {
         parent::setUp();
+        $this->artisan('db:seed');
     }
 
     public function testRegisterNewUser()
     {
+        $response = $this->register_user();
+        $response->assertDontSeeText('fail');
+        $response->assertStatus(200);
+    }
+
+    public function register_user()
+    {
         $response = $this->post('/register-user', [
-            'email' => 'register_new_user_test_123456123@gmail.com',
+            'email' => 'hizmetparki@gmail.com',
             'companyEvent' => 'istanbul-boat-tour',
             'token' => 'sample_token_123456'
         ]);
 
-        $response->assertDontSeeText('fail');
-        $response->assertStatus(200);
-        $this->removeDatabaseInsertions();
-    }
-
-    private function removeDatabaseInsertions()
-    {
-        $user = User::where('email', 'register_new_user_test_123456123@gmail.com')->first();
-        UserEvent::where('user_id', $user->id)->first()->delete();
-        $user->delete();
+        return $response;
     }
 }
