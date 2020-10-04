@@ -37,8 +37,7 @@ class QrCodeGeneratorController extends QrCodeBaseApiController
 
             return true;
         } catch (\Exception $e) {
-            dd($e->getMessage());
-            //$this->reportAsMail($e);
+            $this->reportAsMail($e);
 
             return false;
         }
