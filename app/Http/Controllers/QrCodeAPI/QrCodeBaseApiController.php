@@ -8,7 +8,7 @@ use App\Services\UserEventService;
 use App\Traits\ErrorReport;
 use App\Validators\EventRegistrationValidator;
 
-class QrCodeBaseApiController extends Controller
+abstract class QrCodeBaseApiController extends Controller
 {
     use ErrorReport;
 
