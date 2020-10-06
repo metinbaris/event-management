@@ -7,6 +7,5 @@ Route::middleware(['api', 'ipMiddleware'])->group(function () {
     Route::post('/generate-qrcode', 'QrCodeAPI\QrCodeGeneratorController@generate');
     Route::post('/validate-qrcode', 'QrCodeAPI\QrCodeValidationController@validateQrCode');
 });
-Route::get('/', function () {
-    return 'It works';
-});
+
+Route::get('/', 'GoogleSheetsApi\GoogleSheetsApiController@getValues');
