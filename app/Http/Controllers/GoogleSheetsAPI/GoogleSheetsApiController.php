@@ -2,13 +2,31 @@
 
 namespace App\Http\Controllers\GoogleSheetsAPI;
 
-class GoogleSheetsApiController extends GoogleSheetsBaseApiController
+use App\Services\GoogleSheetsService;
+
+class GoogleSheetsApiController
 {
+    /**
+     * @var GoogleSheetsService
+     */
+    protected $googleSheetsService;
+
+    /**
+     * GoogleSheetsApiController constructor.
+     * @param GoogleSheetsService $googleSheetsService
+     */
+    public function __construct(GoogleSheetsService $googleSheetsService)
+    {
+        $this->googleSheetsService = $googleSheetsService;
+    }
+
+    /**
+     * 
+     */
     public function getValues()
     {
-        $service = $this->getGoogleSheetService();
+        $service = $this->googleSheetsService->getService();
         $spreadsheetId = env('GOOGLE_SPREAD_SHEET_ID_FOR_REGISTER');
-
         $range = 'A1:E1';
         $response = $service->spreadsheets_values->get($spreadsheetId, $range);
 
