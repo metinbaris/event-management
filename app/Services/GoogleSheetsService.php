@@ -13,10 +13,10 @@ class GoogleSheetsService
      */
     protected $client;
 
-    /**
+    /** Row values of google sheets
      * @var array
      */
-    protected $body;
+    protected $rowData;
 
     /**
      * GoogleSheetsService constructor.
@@ -30,14 +30,28 @@ class GoogleSheetsService
     public function insert(array $data)
     {
         $this->setClient();
-        $this->setBody($data);
+        $this->setRowData($data);
         $this->getService()->spreadsheets_values->append(
             $data[ 'googleSheetId' ],
             $data[ 'googleSheetName' ],
-            $this->getBody(),
+            $this->getRowData(),
             ['valueInputOption' => 'RAW'],
             ['insertDataOption' => 'INSERT_ROWS']
         );
+    }
+
+    public function setClient()
+    {
+        $this->client->setApplicationName('Google Sheets');
+        $this->client->setScopes(Google_Service_Sheets::SPREADSHEETS);
+        $this->client->setAuthConfig(config_path() . '/google-sheets.json');
+        $this->client->setAccessType('offline');
+    }
+
+    public function setRowData($data)
+    {
+        unset($data[ 'googleSheetId' ], $data[ 'googleSheetName' ]);
+        $this->rowData = new Google_Service_Sheets_ValueRange(['values' => [$data]]);
     }
 
     public function getService()
@@ -47,21 +61,8 @@ class GoogleSheetsService
         return $service;
     }
 
-    public function setClient()
+    public function getRowData(): array
     {
-        $this->client->setApplicationName('Google Sheets API PHP Quickstart');
-        $this->client->setScopes(Google_Service_Sheets::SPREADSHEETS);
-        $this->client->setAuthConfig(config_path() . '/google-sheets.json');
-        $this->client->setAccessType('offline');
-    }
-
-    public function setBody($data)
-    {
-        $this->body = new Google_Service_Sheets_ValueRange(['values' => [$data]]);
-    }
-
-    public function getBody(): array
-    {
-        return $this->body;
+        return $this->rowData;
     }
 }

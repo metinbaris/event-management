@@ -30,6 +30,10 @@ class GoogleSheetsApiController
         $this->googleSheetsApiValidator = $googleSheetsApiValidator;
     }
 
+    /**
+     * @param Request $request
+     * @return bool|string
+     */
     public function store(Request $request)
     {
         $data = $this->googleSheetsApiValidator->validateEventRegistrationForm($request);
