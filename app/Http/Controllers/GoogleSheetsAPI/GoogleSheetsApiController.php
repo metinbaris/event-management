@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\GoogleSheetsAPI;
 
 use App\Services\GoogleSheetsService;
+use App\Validators\GoogleSheetsApiValidator;
+use Illuminate\Http\Request;
 
 class GoogleSheetsApiController
 {
@@ -10,35 +12,34 @@ class GoogleSheetsApiController
      * @var GoogleSheetsService
      */
     protected $googleSheetsService;
+    /**
+     * @var GoogleSheetsApiValidator
+     */
+    protected $googleSheetsApiValidator;
 
     /**
      * GoogleSheetsApiController constructor.
      * @param GoogleSheetsService $googleSheetsService
+     * @param GoogleSheetsApiValidator $googleSheetsApiValidator
      */
-    public function __construct(GoogleSheetsService $googleSheetsService)
-    {
+    public function __construct(
+        GoogleSheetsService $googleSheetsService,
+        GoogleSheetsApiValidator $googleSheetsApiValidator
+    ) {
         $this->googleSheetsService = $googleSheetsService;
+        $this->googleSheetsApiValidator = $googleSheetsApiValidator;
     }
 
-    /**
-     * 
-     */
-    public function getValues()
+    public function store(Request $request)
     {
-        $service = $this->googleSheetsService->getService();
-        $spreadsheetId = env('GOOGLE_SPREAD_SHEET_ID_FOR_REGISTER');
-        $range = 'A1:E1';
-        $response = $service->spreadsheets_values->get($spreadsheetId, $range);
+        $data = $this->googleSheetsApiValidator->validateEventRegistrationForm($request);
 
-        $values = $response->getValues();
-        if (empty($values)) {
-            print "No data found.\n";
-        } else {
-            print "Name, Major:\n";
-            foreach ($values as $row) {
-                // Print columns A and E, which correspond to indices 0 and 4.
-                printf("%s, %s\n", $row[ 0 ], $row[ 4 ]);
-            }
+        try {
+            $this->googleSheetsService->insert($data);
+
+            return true;
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
     }
 }
