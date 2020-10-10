@@ -50,7 +50,7 @@ class GoogleSheetsService
 
     public function setRowData($data)
     {
-        unset($data[ 'googleSheetId' ], $data[ 'googleSheetName' ]);
+        unset($data[ 'googleSheetsId' ], $data[ 'googleSheetsName' ]);
         $this->rowData = new Google_Service_Sheets_ValueRange(['values' => [$data]]);
     }
 
