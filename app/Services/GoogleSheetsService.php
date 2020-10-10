@@ -32,8 +32,8 @@ class GoogleSheetsService
         $this->setClient();
         $this->setRowData($data);
         $this->getService()->spreadsheets_values->append(
-            $data[ 'googleSheetId' ],
-            $data[ 'googleSheetName' ],
+            $data[ 'googleSheetsId' ],
+            $data[ 'googleSheetsName' ],
             $this->getRowData(),
             ['valueInputOption' => 'RAW'],
             ['insertDataOption' => 'INSERT_ROWS']

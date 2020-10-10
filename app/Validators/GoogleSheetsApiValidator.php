@@ -13,8 +13,8 @@ class GoogleSheetsApiValidator
     public function validateEventRegistrationForm(Request $request): array
     {
         $validatedArray = $request->validate([
-            'googleSheetId' => 'required',
-            'googleSheetName' => 'required',
+            'googleSheetsId' => 'required',
+            'googleSheetsName' => 'required',
             'gender' => 'required',
             'fullName' => 'required',
             'email' => 'required',
