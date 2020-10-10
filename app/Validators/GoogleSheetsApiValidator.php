@@ -15,10 +15,11 @@ class GoogleSheetsApiValidator
         $validatedArray = $request->validate([
             'googleSheetsId' => 'required',
             'googleSheetsName' => 'required',
-            'gender' => 'required',
             'fullName' => 'required',
-            'email' => 'required',
             'phone' => 'required',
+            'email' => 'required',
+            'gender' => 'required',
+            'university' => 'required'
         ]);
 
         return $validatedArray;
