@@ -61,7 +61,7 @@ class GoogleSheetsService
         return $service;
     }
 
-    public function getRowData(): array
+    public function getRowData(): Google_Service_Sheets_ValueRange
     {
         return $this->rowData;
     }
